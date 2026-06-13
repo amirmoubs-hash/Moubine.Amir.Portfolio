@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moubine Amir — Portfolio · Mesures Physiques</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<style>
+  :root{
+    --paper:#faf8f3;
+    --paper-2:#f2efe7;
+    --ink:#1c1f24;
+    --ink-soft:#4a4f57;
+    --muted:#8a8f98;
+    --line:#d8d4c8;
+    --accent:#b4441f;
+    --accent-soft:#f3e2da;
+    --mono:'Courier New',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --serif:Georgia,'Times New Roman',serif;
+    --sans:'Segoe UI',system-ui,-apple-system,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.7;}
+  ::selection{background:var(--accent);color:#fff;}
+
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:linear-gradient(var(--line) 1px, transparent 1px);
+    background-size:100% 56px;opacity:.18;}
+
+  .mono{font-family:var(--mono);letter-spacing:.08em;}
+
+  /* ===== SIDEBAR ===== */
+  aside{position:fixed;top:0;left:0;bottom:0;width:230px;border-right:1px solid var(--line);background:var(--paper);z-index:50;display:flex;flex-direction:column;justify-content:space-between;padding:36px 28px;}
+  .side-name{font-family:var(--serif);font-size:1.25rem;font-weight:700;line-height:1.25;}
+  .side-name em{display:block;font-family:var(--mono);font-style:normal;font-size:.62rem;color:var(--accent);letter-spacing:.18em;margin-top:8px;text-transform:uppercase;}
+  .side-nav{list-style:none;margin-top:60px;}
+  .side-nav li{margin-bottom:18px;}
+  .side-nav a{text-decoration:none;color:var(--ink-soft);font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;display:flex;gap:12px;align-items:baseline;transition:color .2s;}
+  .side-nav a:hover{color:var(--accent);}
+  .side-nav a b{color:var(--accent);font-weight:400;font-size:.68rem;}
+  .side-foot{font-family:var(--mono);font-size:.62rem;color:var(--muted);letter-spacing:.12em;line-height:2;}
+  .side-foot span{display:block;}
+
+  main{margin-left:230px;position:relative;z-index:1;}
+  @media(max-width:880px){
+    aside{position:static;width:100%;border-right:none;border-bottom:1px solid var(--line);flex-direction:row;align-items:center;padding:20px 24px;}
+    .side-nav{margin-top:0;display:flex;gap:18px;}
+    .side-nav li{margin:0;}
+    .side-nav a b{display:none;}
+    .side-foot{display:none;}
+    main{margin-left:0;}
+  }
+  @media(max-width:640px){
+    .side-nav{flex-wrap:wrap;gap:10px 14px;}
+    aside{flex-direction:column;align-items:flex-start;gap:14px;}
+  }
+
+  .crosshair{position:relative;}
+  .crosshair::before,.crosshair::after{font-family:var(--mono);color:var(--accent);position:absolute;font-size:.9rem;opacity:.85;}
+  .crosshair::before{content:'+';top:10px;left:12px;}
+  .crosshair::after{content:'+';bottom:10px;right:12px;}
+
+  .sec-label{font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+  .sec-label::after{content:'';flex:1;height:1px;background:var(--line);}
+  .sec-title{font-family:var(--serif);font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:700;margin-bottom:34px;line-height:1.15;}
+
+  section{max-width:920px;margin:0 auto;padding:90px 48px;border-bottom:1px solid var(--line);}
+  @media(max-width:640px){section{padding:60px 22px;}}
+
+  /* ===== HERO ===== */
+  .hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid var(--line);max-width:920px;margin:0 auto;padding:120px 48px 80px;}
+  @media(max-width:640px){.hero{padding:70px 22px 60px;min-height:auto;}}
+  .hero-kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:26px;display:flex;gap:14px;align-items:center;}
+  .hero-kicker i{color:var(--accent);font-size:.6rem;}
+  .hero h1{font-family:var(--serif);font-size:clamp(2.6rem,7vw,4.6rem);line-height:1.04;font-weight:700;margin-bottom:30px;}
+  .hero h1 .underl{box-shadow:inset 0 -0.18em 0 var(--accent-soft);}
+  .hero-sub{max-width:560px;color:var(--ink-soft);font-size:1.04rem;margin-bottom:40px;}
+  .hero-data{display:flex;gap:0;border:1px solid var(--line);width:fit-content;flex-wrap:wrap;background:#fff;}
+  .hero-data div{padding:14px 26px;border-right:1px solid var(--line);}
+  .hero-data div:last-child{border-right:none;}
+  .hero-data b{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:2px;font-weight:400;}
+  .hero-data span{font-size:.92rem;font-weight:600;}
+  .hero-cta{margin-top:44px;display:flex;gap:18px;flex-wrap:wrap;}
+  .btn{font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;padding:14px 30px;transition:all .22s;display:inline-block;}
+  .btn-ink{background:var(--ink);color:var(--paper);border:1px solid var(--ink);}
+  .btn-ink:hover{background:var(--accent);border-color:var(--accent);}
+  .btn-ghost{border:1px solid var(--ink);color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* ===== ABOUT ===== */
+  .about-text p{color:var(--ink-soft);margin-bottom:16px;font-size:.99rem;}
+  .about-text p strong{color:var(--ink);}
+  .spec-table{margin-top:30px;border:1px solid var(--line);background:#fff;}
+  .spec-row{display:grid;grid-template-columns:180px 1fr;border-bottom:1px solid var(--line);}
+  .spec-row:last-child{border-bottom:none;}
+  .spec-row b{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:12px 18px;border-right:1px solid var(--line);font-weight:400;display:flex;align-items:center;}
+  .spec-row span{padding:12px 18px;font-size:.92rem;font-weight:500;}
+  @media(max-width:560px){.spec-row{grid-template-columns:130px 1fr;}}
+
+  /* ===== FORMATION ===== */
+  .edu-item{display:grid;grid-template-columns:150px 1fr;gap:34px;padding:36px 0;border-bottom:1px dashed var(--line);}
+  .edu-item:last-child{border-bottom:none;}
+  @media(max-width:640px){.edu-item{grid-template-columns:1fr;gap:10px;padding:28px 0;}}
+  .edu-date{font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;padding-top:5px;}
+  .edu-head{display:flex;justify-content:space-between;align-items:flex-start;gap:22px;}
+  .edu-head-txt{flex:1;}
+  .edu-logo{width:88px;height:88px;flex-shrink:0;border:1px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .edu-logo img{width:100%;height:100%;object-fit:contain;padding:6px;}
+  @media(max-width:560px){.edu-logo{width:70px;height:70px;}}
+  .edu-body h3{font-family:var(--serif);font-size:1.28rem;margin-bottom:4px;line-height:1.3;}
+  .edu-place{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+  .edu-body p{color:var(--ink-soft);font-size:.94rem;margin-bottom:10px;}
+  .edu-body ul{list-style:none;margin-top:6px;}
+  .edu-body li{font-size:.91rem;color:var(--ink-soft);padding:5px 0 5px 24px;position:relative;}
+  .edu-body li::before{content:'—';color:var(--accent);position:absolute;left:0;font-family:var(--mono);}
+  .edu-body li strong{color:var(--ink);}
+
+  /* ===== PROJETS ===== */
+  .proj-list{border-top:1px solid var(--ink);}
+  .proj-row{display:grid;grid-template-columns:64px 110px 1fr auto;gap:24px;align-items:center;padding:26px 8px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .2s;position:relative;}
+  .proj-row:hover{background:#fff;}
+  .proj-row:hover .proj-arrow{transform:translateX(6px);color:var(--accent);}
+  @media(max-width:760px){.proj-row{grid-template-columns:48px 1fr auto;gap:14px;}.proj-thumb{display:none!important;}}
+  .proj-num{font-family:var(--mono);font-size:.8rem;color:var(--muted);}
+  .proj-thumb{width:110px;height:72px;background:var(--paper-2);border:1px solid var(--line);overflow:hidden;display:flex;align-items:center;justify-content:center;position:relative;}
+  .proj-thumb img{width:100%;height:100%;object-fit:cover;}
+  .proj-main h3{font-family:var(--serif);font-size:1.18rem;font-weight:700;line-height:1.3;margin-bottom:4px;}
+  .proj-meta{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+  .proj-tags{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;}
+  .tag{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line);padding:3px 10px;color:var(--ink-soft);background:#fff;}
+  .proj-arrow{font-size:1rem;color:var(--muted);transition:all .2s;padding-right:6px;}
+  .proj-hidden{display:none;}
+
+  /* ===== MODAL ===== */
+  .modal-overlay{position:fixed;inset:0;background:rgba(28,31,36,.6);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto;}
+  .modal-overlay.open{display:flex;animation:fadeIn .22s ease;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .modal-box{background:var(--paper);max-width:820px;width:100%;border:1px solid var(--ink);animation:slideUp .28s ease;margin:auto 0;position:relative;}
+  @keyframes slideUp{from{transform:translateY(26px);opacity:0}to{transform:none;opacity:1}}
+  .modal-head{border-bottom:1px solid var(--ink);padding:18px 28px;display:flex;justify-content:space-between;align-items:center;background:#fff;}
+  .modal-ref{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);}
+  .modal-close{background:none;border:1px solid var(--ink);color:var(--ink);width:36px;height:36px;cursor:pointer;font-size:.85rem;transition:all .2s;}
+  .modal-close:hover{background:var(--ink);color:var(--paper);}
+  .modal-img{height:300px;background:var(--paper-2);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .modal-img img{width:100%;height:100%;object-fit:cover;}
+  .modal-img .no-img{color:var(--muted);font-size:2.2rem;}
+  .modal-content{padding:40px 46px 48px;}
+  @media(max-width:640px){.modal-content{padding:28px 22px 34px;}}
+  .modal-content .proj-tags{margin:0 0 18px;}
+  .modal-content h3{font-family:var(--serif);font-size:1.65rem;line-height:1.25;margin-bottom:8px;}
+  .modal-content .proj-meta{margin-bottom:22px;display:block;}
+  .modal-content .modal-desc{color:var(--ink-soft);font-size:.99rem;margin-bottom:8px;}
+  .modal-content h5{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:30px 0 12px;display:flex;align-items:center;gap:14px;font-weight:400;clear:both;}
+  .modal-content h5::after{content:'';flex:1;height:1px;background:var(--line);}
+  .modal-content ul{list-style:none;}
+  .modal-content li{font-size:.94rem;color:var(--ink-soft);padding:6px 0 6px 24px;position:relative;}
+  .modal-content li::before{content:'—';color:var(--accent);position:absolute;left:0;font-family:var(--mono);}
+  .modal-content li strong{color:var(--ink);}
+  /* Figures en vis-à-vis du texte */
+  .g-slot.inline{float:right;width:44%;margin:4px 0 20px 28px;}
+  .g-slot.inline:nth-of-type(even){float:left;margin:4px 28px 20px 0;}
+  @media(max-width:560px){.g-slot.inline,.g-slot.inline:nth-of-type(even){float:none;width:100%;margin:16px 0;}}
+  .g-fig{aspect-ratio:4/3;background:var(--paper-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .g-fig img{width:100%;height:100%;object-fit:cover;}
+  .g-fig.contain img{object-fit:contain;padding:10px;background:#fff;}
+  .g-cap{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;color:var(--muted);margin-top:8px;line-height:1.6;text-transform:uppercase;}
+
+  /* ===== CONTACT ===== */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+  @media(max-width:760px){.contact-grid{grid-template-columns:1fr;}}
+  .contact-lines{border-top:1px solid var(--ink);}
+  .c-line{display:grid;grid-template-columns:110px 1fr;border-bottom:1px solid var(--line);padding:16px 4px;gap:14px;}
+  .c-line b{font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:400;padding-top:4px;}
+  .c-line span{font-size:.94rem;font-weight:500;word-break:break-word;}
+  .c-line a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
+  .c-line a:hover{color:var(--accent);border-color:var(--accent);}
+  .c-note{margin-top:22px;font-size:.9rem;color:var(--ink-soft);border-left:2px solid var(--accent);padding-left:16px;}
+  .form-label{font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px;}
+  .form-group{margin-bottom:20px;}
+  .form-group input,.form-group textarea{width:100%;padding:13px 15px;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:.93rem;font-family:var(--sans);transition:border-color .2s;}
+  .form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--accent);}
+  .send-btn{font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;width:100%;padding:15px;background:var(--ink);border:1px solid var(--ink);color:var(--paper);cursor:pointer;transition:all .22s;}
+  .send-btn:hover{background:var(--accent);border-color:var(--accent);}
+
+  footer{padding:30px 48px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);max-width:920px;margin:0 auto;}
+  @media(max-width:640px){footer{padding:24px 22px;}}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.visible{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<aside>
+  <div>
+    <div class="side-name">Moubine<br>Amir
+      <em>Mesures Physiques</em>
+    </div>
+    <ul class="side-nav">
+      <li><a href="#profil"><b>01</b> Profil</a></li>
+      <li><a href="#formation"><b>02</b> Formation</a></li>
+      <li><a href="#projets"><b>03</b> Projets</a></li>
+      <li><a href="#contact"><b>04</b> Contact</a></li>
+    </ul>
+  </div>
+  <div class="side-foot">
+    <span>IUT de Blois</span>
+    <span>47.59° N — 1.33° E</span>
+    <span>© 2026</span>
+  </div>
+</aside>
+
+<main>
+
+<!-- ===== HERO ===== -->
+<div class="hero crosshair">
+  <div class="hero-kicker"><i class="fa-solid fa-circle"></i> Portfolio — Édition 2026</div>
+  <h1>Mesurer le réel,<br><span class="underl">avec précision.</span></h1>
+  <p class="hero-sub">Étudiant en 2ᵉ année de BUT Mesures Physiques à l'IUT de Blois, parcours Techniques d'Instrumentation. Je conçois des chaînes de mesure, manipule en laboratoire et transforme des données brutes en résultats fiables.</p>
+  <div class="hero-data">
+    <div><b>Statut</b><span>BUT 2 — TI</span></div>
+    <div><b>Localisation</b><span>Blois, France</span></div>
+    <div><b>Disponibilité</b><span>Apprentissage — sept. 2026</span></div>
+  </div>
+  <div class="hero-cta">
+    <a href="#projets" class="btn btn-ink">Consulter les projets</a>
+    <a href="#contact" class="btn btn-ghost">Me contacter</a>
+  </div>
+</div>
+
+<!-- ===== 01 PROFIL ===== -->
+<section id="profil">
+  <div class="sec-label">Section 01 — Profil</div>
+  <h2 class="sec-title">À propos</h2>
+  <div class="reveal">
+    <div class="about-text">
+      <p>Étudiant en 2ᵉ année de BUT Mesures Physiques à l'IUT de Blois, je suis passionné par <strong>l'instrumentation, les matériaux et la résolution de problématiques techniques concrètes</strong>. Mon parcours, d'abord très théorique en prépa intégrée à l'INSA, a évolué vers une volonté forte d'expérimenter sur le terrain et de manipuler en laboratoire.</p>
+      <p>Actuellement en stage de recherche à l'Université du Tohoku au Japon sur des enjeux d'érosion des matériaux, je développe au quotidien mon autonomie et ma rigueur scientifique. D'un naturel curieux, minutieux et manuel, je suis aujourd'hui à la recherche d'un <strong>contrat d'apprentissage pour ma 3ᵉ année de BUT (dès septembre 2026)</strong>, avec l'objectif de mettre mon adaptabilité et mes compétences techniques au service de vos projets.</p>
+      <div class="spec-table">
+        <div class="spec-row"><b>Formation</b><span>BUT Mesures Physiques — Techniques d'Instrumentation</span></div>
+        <div class="spec-row"><b>Stage en cours</b><span>Université du Tohoku — Sendai, Japon</span></div>
+        <div class="spec-row"><b>Objectif</b><span>Contrat d'apprentissage BUT 3 — septembre 2026</span></div>
+        <div class="spec-row"><b>Mobilité</b><span>Blois · Région Centre-Val de Loire · Permis B</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 02 FORMATION ===== -->
+<section id="formation">
+  <div class="sec-label">Section 02 — Parcours académique</div>
+  <h2 class="sec-title">Ma Formation</h2>
+  <div class="reveal">
+
+    <div class="edu-item">
+      <div class="edu-date">2024 — Présent</div>
+      <div class="edu-body">
+        <div class="edu-head">
+          <div class="edu-head-txt">
+            <h3>BUT Mesures Physiques — Parcours Techniques d'Instrumentation</h3>
+            <div class="edu-place">IUT de Blois — Université de Tours</div>
+          </div>
+          <div class="edu-logo"><img src="logo-tours.png" alt="Logo Université de Tours"></div>
+        </div>
+        <p>Formation généraliste permettant d'intervenir dans de multiples domaines de la mesure : R&D, laboratoires d'analyse, services qualité. L'apprentissage repose sur un équilibre entre bases théoriques universitaires, expérimentation via de nombreux travaux pratiques et gestion de projets. <strong>Actuellement à la recherche d'un contrat d'apprentissage pour la 3ᵉ année.</strong></p>
+        <ul>
+          <li><strong>Instrumentation & chaîne de mesure :</strong> conception de chaînes complètes (capteur, conditionneur, traitement, acquisition), traitement électronique des signaux, interfaces homme-machine (IHM).</li>
+          <li><strong>Matériaux & analyses chimiques :</strong> spectroscopie (UV-Visible, Infrarouge, Raman), chromatographie, électrochimie.</li>
+          <li><strong>Physique appliquée & essais :</strong> mécanique des fluides, techniques du vide (dimensionnement, spectrométrie de masse), optique ondulatoire, électromagnétisme.</li>
+          <li><strong>Métrologie, qualité & signal :</strong> fiabilité et traçabilité des résultats, Maîtrise Statistique des Procédés (MSP), traitement numérique des signaux.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-date">2022 — 2024</div>
+      <div class="edu-body">
+        <div class="edu-head">
+          <div class="edu-head-txt">
+            <h3>Cycle Préparatoire Ingénieur (STPI)</h3>
+            <div class="edu-place">INSA Centre Val de Loire</div>
+          </div>
+          <div class="edu-logo"><img src="logo-insa.png" alt="Logo INSA Centre Val de Loire"></div>
+        </div>
+        <p>Formation scientifique généraliste et intensive visant à construire un socle théorique robuste pour l'ingénierie et la résolution de problèmes complexes.</p>
+        <ul>
+          <li><strong>Mathématiques appliquées :</strong> analyse, algèbre linéaire, équations différentielles, probabilités.</li>
+          <li><strong>Physique théorique :</strong> mécanique (point et solide), thermodynamique, optique, électromagnétisme.</li>
+          <li><strong>Sciences de l'ingénieur :</strong> conception mécanique, modélisation des systèmes, CAO.</li>
+          <li><strong>Informatique :</strong> algorithmique et programmation.</li>
+        </ul>
+        <p style="margin-top:12px;"><em>Réorientation choisie vers le BUT afin de pivoter de cette approche conceptuelle vers une expertise de terrain, appliquée et centrée sur l'instrumentation en laboratoire.</em></p>
+      </div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-date">2022</div>
+      <div class="edu-body">
+        <div class="edu-head">
+          <div class="edu-head-txt">
+            <h3>Baccalauréat Général — Mention Bien</h3>
+            <div class="edu-place">Lycée Augustin Thierry — Blois</div>
+          </div>
+          <div class="edu-logo"><img src="logo-augustin.png" alt="Blason Augustin Thierry"></div>
+        </div>
+        <p><strong>Spécialités :</strong> Mathématiques et Physique-Chimie. Validation d'un socle scientifique exigeant, marquant le point de départ d'un parcours orienté vers les sciences dures et l'ingénierie.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== 03 PROJETS ===== -->
+<section id="projets">
+  <div class="sec-label">Section 03 — Index des projets</div>
+  <h2 class="sec-title">Projets & Expériences</h2>
+  <p style="font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:28px;">Sélectionner une entrée pour consulter la fiche complète</p>
+
+  <div class="proj-list reveal">
+
+    <!-- PROJET 1 -->
+    <div class="proj-row" onclick="openProject(this)" data-ref="Réf. 2026-01 — Stage de recherche" data-gallery="tohoku">
+      <div class="proj-num">01</div>
+      <div class="proj-thumb"><img src="lab-banc.jpg" alt="Stage Tohoku"></div>
+      <div class="proj-main">
+        <h3>Stage de Recherche : Synergie Érosion-Corrosion</h3>
+        <span class="proj-meta">Laboratoire ELyTMaX · Université du Tohoku, Sendai (Japon) · Mai — Juillet 2026</span>
+        <div class="proj-tags">
+          <span class="tag">Recherche</span>
+          <span class="tag">Électrochimie</span>
+          <span class="tag">Impression 3D</span>
+        </div>
+      </div>
+      <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      <div class="proj-hidden">
+        <p class="modal-desc">Mobilité internationale de trois mois au sein du laboratoire franco-japonais ELyTMaX, sous la supervision du chercheur Nicolas Mary. Étude des mécanismes de synergie entre l'érosion mécanique et la corrosion électrochimique sur des échantillons d'acier, avec un focus sur le chargement en hydrogène.</p>
+        <h5>Missions et réalisations</h5>
+        <ul>
+          <li><strong>Instrumentation & impression 3D :</strong> face à des problèmes de reproductibilité sur le banc d'essai, modélisation et fabrication d'une pièce sur-mesure en impression 3D. Cette solution a permis d'optimiser le montage expérimental, garantissant un maintien parfait de l'échantillon et une fiabilité totale des mesures.</li>
+          <li><strong>Analyse électrochimique (potentiostat) :</strong> mesures de chronopotentiométrie et de voltamétrie linéaire (LSV). Étude du comportement de l'acier sous protection cathodique forcée (de -5 mA à -20 mA) pour analyser l'évolution du potentiel (OCP) face à différentes hydrodynamiques de jet (de 20 à 90 mL/s).</li>
+          <li><strong>Caractérisation de surface :</strong> profilométrie 3D pour quantifier l'usure et la perte de volume (cratères) générées par l'impact mécanique continu de particules abrasives de 314 µm.</li>
+          <li><strong>Traitement et optimisation des données :</strong> conception d'un « tableau maître » automatisé sur Excel pour nettoyer les données brutes et superposer les régimes hydrodynamiques.</li>
+        </ul>
+        <h5>Compétences clés mobilisées</h5>
+        <ul>
+          <li><strong>Techniques :</strong> électrochimie, conception 3D (CAO / impression 3D), profilométrie 3D, traitement de données massives (Excel), métrologie.</li>
+          <li><strong>Transversales :</strong> esprit d'analyse, démarche d'amélioration continue, adaptabilité dans un environnement de recherche international exigeant, résolution de problèmes complexes.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PROJET 2 -->
+    <div class="proj-row" onclick="openProject(this)" data-ref="Réf. 2025-02 — SAE Instrumentation" data-gallery="spectro">
+      <div class="proj-num">02</div>
+      <div class="proj-thumb"><img src="spectro-cuves.jpg" alt="Spectrophotomètre"></div>
+      <div class="proj-main">
+        <h3>Conception d'un Spectrophotomètre à Nitrites</h3>
+        <span class="proj-meta">IUT de Blois · Semestres 3 & 4 · En binôme avec Adem Amzighe</span>
+        <div class="proj-tags">
+          <span class="tag">Optoélectronique</span>
+          <span class="tag">Chimie</span>
+          <span class="tag">Métrologie</span>
+        </div>
+      </div>
+      <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      <div class="proj-hidden">
+        <p class="modal-desc">Conception d'un instrument de mesure optique de précision pour doser la concentration en ions nitrites dans l'eau de la Loire, dans le cadre d'une SAE du parcours Techniques d'Instrumentation. Un projet d'ingénierie globale, de la chimie à la mécanique.</p>
+        <h5>Missions et réalisations</h5>
+        <ul>
+          <li><strong>Chimie analytique :</strong> préparation des échantillons via la méthode de Griess. L'ajout du réactif entraîne la formation d'un complexe magenta dont l'intensité est proportionnelle à la concentration en nitrites.</li>
+          <li><strong>Chaîne optoélectronique :</strong> sélection d'un laser vert (λ ≈ 530 nm), longueur d'onde correspondant au pic d'absorption de l'échantillon. Le faisceau traverse une cuve standard de 1 cm avant d'être capté par un phototransistor.</li>
+          <li><strong>Électronique de conditionnement :</strong> montage transimpédance (convertisseur courant-tension) avec amplificateur opérationnel couplé à une résistance R = 6,2 kΩ pour convertir le photocourant en tension exploitable (Vs = −R×Ic) envoyée vers le microcontrôleur.</li>
+          <li><strong>Ingénierie mécanique :</strong> isolement des mesures de la lumière ambiante grâce à un boîtier en ABS noir opaque. Conception d'un « plancher » sur mesure de 78 × 18,2 mm, doté d'un évidement central carré de 8,5 mm, pour stabiliser parfaitement la cuvette dans l'axe exact de l'optique.</li>
+          <li><strong>Interface logicielle :</strong> développement d'un site avec trois menus distincts — étalonnage de référence via la droite de Beer-Lambert, dosage automatisé de la concentration en mg/L et suivi graphique en direct de la stabilité du signal brut.</li>
+        </ul>
+        <h5>Valeur ajoutée : validation métrologique</h5>
+        <ul>
+          <li>Validation rigoureuse des performances sur une gamme d'étalonnage de 0,05 à 2 mg/L. Détermination de l'équation d'étalonnage A = 0,1684×C + 0,0247.</li>
+          <li>Sensibilité de 0,1684 L/mg et excellente linéarité avec un coefficient de détermination R² = 0,9927, confirmant la grande fiabilité des mesures.</li>
+          <li>Rédaction de l'intégralité du manuel d'utilisation de l'appareil en anglais.</li>
+        </ul>
+        <h5>Compétences clés mobilisées</h5>
+        <ul>
+          <li><strong>Techniques :</strong> optoélectronique, chimie colorimétrique (méthode de Griess), électronique d'acquisition, conception mécanique, métrologie.</li>
+          <li><strong>Transversales :</strong> rédaction de documentation technique en anglais, gestion de projet, travail en binôme.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PROJET 3 -->
+    <div class="proj-row" onclick="openProject(this)" data-ref="Réf. 2025-03 — Projet tutoré" data-gallery="pendule">
+      <div class="proj-num">03</div>
+      <div class="proj-thumb"><img src="pendule-montage.jpg" alt="Pendule simple"></div>
+      <div class="proj-main">
+        <h3>Analyse et Traitement de Données d'un Pendule Simple</h3>
+        <span class="proj-meta">Projet tutoré BUT 1 · En binôme avec Lucas Guezou · Janvier 2025</span>
+        <div class="proj-tags">
+          <span class="tag">Traitement de données</span>
+          <span class="tag">Modélisation</span>
+        </div>
+      </div>
+      <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      <div class="proj-hidden">
+        <p class="modal-desc">Projet tutoré illustrant les connexions entre théorie physique et expérience : étude des facteurs influençant le comportement oscillatoire d'un pendule simple, de l'acquisition brute jusqu'à la modélisation mathématique.</p>
+        <h5>Missions et réalisations</h5>
+        <ul>
+          <li><strong>Acquisition expérimentale :</strong> création d'un pendule simple en suspendant un smartphone à un fil de 99 cm. Acquisition des données (composantes du gyroscope en x, y, z et temps) synchronisée avec l'application Phyphox. Expérience répétée trois fois pour garantir la fiabilité.</li>
+          <li><strong>Sélection et traitement des données :</strong> organisation des informations dans le tableur LibreOffice Calc. Analyse concentrée sur la composante X du gyroscope, présentant le comportement le plus proche d'une sinusoïde.</li>
+          <li><strong>Modélisation mathématique :</strong> utilisation de la formule théorique d'un signal sinusoïdal amorti : K·sin(ωt+φ)·exp(−αt).</li>
+          <li><strong>Optimisation par le Solveur :</strong> méthode des moindres carrés en calculant l'écart (y−ŷ)² entre données réelles et modèle, puis ajustement des paramètres (K, ω, α) pour faire correspondre la courbe théorique à la courbe expérimentale.</li>
+          <li><strong>Gestion de projet :</strong> élaboration d'un diagramme de Gantt pour structurer le travail en équipe, planifier les tâches et définir des échéances claires.</li>
+        </ul>
+        <h5>Valeur ajoutée</h5>
+        <ul>
+          <li>Mise en place physique du pendule pour garantir stabilité et précision des mesures, puis organisation rigoureuse de l'optimisation dans le tableur.</li>
+          <li>Obtention d'un modèle mathématique très précis qui s'aligne fidèlement sur les données brutes du capteur, en surmontant les écarts initiaux entre théorie et réalité expérimentale.</li>
+        </ul>
+        <h5>Compétences clés mobilisées</h5>
+        <ul>
+          <li><strong>Techniques :</strong> acquisition sur smartphone (Phyphox, gyroscope), modélisation physique (oscillations), traitement de données sur tableur (LibreOffice Calc, Solveur, moindres carrés).</li>
+          <li><strong>Transversales :</strong> gestion de projet (diagramme de Gantt), travail d'équipe en relais, analyse critique des écarts théorie/expérience.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PROJET 4 -->
+    <div class="proj-row" onclick="openProject(this)" data-ref="Réf. 2025-04 — Module de communication" data-gallery="podcast">
+      <div class="proj-num">04</div>
+      <div class="proj-thumb"><img src="podcast-studio.jpg" alt="Podcast débat"></div>
+      <div class="proj-main">
+        <h3>Podcast de Débat : « L'ONU et ses défis »</h3>
+        <span class="proj-meta">IUT de Blois · Module de Communication · Avec Adem et Jules · 2024-2025</span>
+        <div class="proj-tags">
+          <span class="tag">Communication</span>
+          <span class="tag">Esprit critique</span>
+        </div>
+      </div>
+      <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      <div class="proj-hidden">
+        <p class="modal-desc">Production et enregistrement d'un podcast de débat contradictoire sur le thème « L'ONU et ses défis : une impuissance insurmontable ? ». Objectif : capter l'attention de l'auditeur uniquement par la voix, avec une stratégie rhétorique structurée et une veille documentaire rigoureuse.</p>
+        <h5>Missions et réalisations</h5>
+        <ul>
+          <li><strong>Préparation et scénarisation radio :</strong> appropriation des codes de l'exercice radiophonique (ton, rythme, gestion du temps de parole et des silences). Rédaction d'un conducteur précis pour structurer le débat et éviter les temps morts.</li>
+          <li><strong>Recherche et veille média :</strong> veille documentaire exhaustive via la plateforme BeMyMedia, analyse de revues de presse (Courrier International, Monde Diplomatique) et de sources institutionnelles officielles (ONU, OMS).</li>
+          <li><strong>Construction rhétorique :</strong> stratégie argumentative variée — argument d'autorité (droit international), argument par les faits (historique des Casques Bleus) et argument de cadrage (la notion de « Soft Law » face au défi climatique).</li>
+          <li><strong>Analyse géopolitique :</strong> étude des failles de l'institution (verrouillage par le droit de veto au Conseil de Sécurité) et mise en lumière de son efficacité fonctionnelle (campagnes de vaccination de l'OMS, logistique du Programme Alimentaire Mondial).</li>
+        </ul>
+        <h5>Valeur ajoutée</h5>
+        <ul>
+          <li>Adaptation d'un contenu académique très dense à un format audio grand public contraint par le temps, grâce à l'écoute active et la réactivité face aux contre-arguments.</li>
+          <li>Vulgarisation aboutissant à une conclusion nuancée au micro : l'ONU n'est pas obsolète, mais s'apparente à une organisation « hémiplégique » — politiquement paralysée d'un côté, d'une efficacité humanitaire redoutable de l'autre.</li>
+        </ul>
+        <h5>Compétences clés mobilisées</h5>
+        <ul>
+          <li><strong>Communication & médias :</strong> maîtrise de l'oralité au micro, gestion du stress, structuration d'un conducteur d'émission, fluidité des transitions.</li>
+          <li><strong>Analyse :</strong> veille informationnelle structurée, synthèse de données géopolitiques complexes, esprit critique.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== 04 CONTACT ===== -->
+<section id="contact" style="border-bottom:none;">
+  <div class="sec-label">Section 04 — Contact</div>
+  <h2 class="sec-title">Me Contacter</h2>
+  <div class="contact-grid reveal">
+    <div>
+      <div class="contact-lines">
+        <div class="c-line"><b>Email</b><span><a href="mailto:Moubine.amir41@gmail.com">Moubine.amir41@gmail.com</a></span></div>
+        <div class="c-line"><b>Téléphone</b><span>+33 6 14 62 60 93</span></div>
+        <div class="c-line"><b>LinkedIn</b><span><a href="https://linkedin.com/in/amir-moubine" target="_blank">linkedin.com/in/amir-moubine</a></span></div>
+        <div class="c-line"><b>Mobilité</b><span>Blois · Région Centre-Val de Loire · Permis B</span></div>
+      </div>
+      <p class="c-note">Vous cherchez un apprenti motivé et rigoureux pour septembre 2026 ? N'hésitez pas à me contacter pour échanger sur vos projets et ma candidature. Actuellement en stage au Japon : contact à privilégier par email ou WhatsApp.</p>
+    </div>
+    <div>
+      <div class="form-group"><label class="form-label">Nom</label><input type="text" id="cName" placeholder="Votre nom"></div>
+      <div class="form-group"><label class="form-label">Email</label><input type="email" id="cEmail" placeholder="votre@email.com"></div>
+      <div class="form-group"><label class="form-label">Message</label><textarea id="cMsg" rows="5" placeholder="Votre message…"></textarea></div>
+      <button class="send-btn" onclick="sendMail()">Envoyer le message</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Moubine Amir — BUT Mesures Physiques</span>
+  <span>IUT de Blois — 2026</span>
+</footer>
+
+</main>
+
+<!-- ===== MODAL PROJET ===== -->
+<div class="modal-overlay" id="projectModal" onclick="if(event.target===this)closeProject()">
+  <div class="modal-box">
+    <div class="modal-head">
+      <span class="modal-ref" id="modalRef">Réf. —</span>
+      <button class="modal-close" onclick="closeProject()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-img" id="modalImg"></div>
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+  // ----- Galeries : figures liées aux fichiers du dossier images/ -----
+  const galleries = {
+    tohoku: [
+      {src:"logo-elytmax.jpg", pos:0, fit:true, caption:"Fig. A — ELyTMaX, laboratoire commun franco-japonais (Univ. Tohoku / INSA Lyon)"},
+      {src:"lab-banc.jpg", pos:1, caption:"Fig. B — Banc d'essai instrumenté au laboratoire"}
+    ],
+    spectro: [
+      {src:"spectro-boitier.jpg", pos:0, caption:"Fig. A — Électronique embarquée : carte Arduino et conditionnement du signal dans le boîtier ABS"},
+      {src:"spectro-cuves.jpg", pos:1, caption:"Fig. B — Gamme d'étalonnage : complexes magenta (méthode de Griess) de 0,05 à 2 mg/L"},
+      {src:"spectro-interface.jpg", pos:2, caption:"Fig. C — Interface logicielle : étalonnage Beer-Lambert, dosage automatisé et stabilité du signal"},
+      {src:"spectro-courbe.jpg", pos:3, caption:"Fig. D — Courbe d'étalonnage : A = 0,1684×C + 0,0247 · R² = 0,9927"}
+    ],
+    pendule: [
+      {src:"pendule-montage.jpg", pos:0, caption:"Fig. A — Montage expérimental : smartphone suspendu à un fil de 99 cm"},
+      {src:"pendule-phyphox.jpg", pos:1, fit:true, caption:"Fig. B — Application Phyphox : acquisition des données du gyroscope"},
+      {src:"pendule-gantt.jpg", pos:2, caption:"Fig. C — Diagramme de Gantt : planification du projet (nov. 2024 — janv. 2025)"}
+    ],
+    podcast: [
+      {src:"podcast-studio.jpg", pos:0, caption:"Fig. A — Session d'enregistrement du podcast en studio"},
+      {src:"podcast-radiocampus.jpg", pos:1, fit:true, caption:"Fig. B — Radio Campus Tours 99.5"}
+    ]
+  };
+
+  function openProject(row){
+    const modal = document.getElementById('projectModal');
+    const modalImg = document.getElementById('modalImg');
+    const modalContent = document.getElementById('modalContent');
+    document.getElementById('modalRef').textContent = row.dataset.ref || 'Fiche projet';
+
+    // Bannière = image principale de la ligne
+    const rowImg = row.querySelector('.proj-thumb img');
+    modalImg.innerHTML = '';
+    if(rowImg){
+      const im = document.createElement('img');
+      im.src = rowImg.src;
+      im.onerror = function(){ modalImg.innerHTML = '<div class="no-img"><i class="fa-solid fa-flask"></i></div>'; };
+      modalImg.appendChild(im);
+    }
+
+    // Contenu
+    const tags = row.querySelector('.proj-tags').outerHTML;
+    const title = row.querySelector('h3').innerHTML;
+    const meta = row.querySelector('.proj-meta').innerHTML;
+    const details = row.querySelector('.proj-hidden').innerHTML;
+    modalContent.innerHTML = tags
+      + '<h3>'+title+'</h3>'
+      + '<span class="proj-meta">'+meta+'</span>'
+      + details;
+
+    // Figures insérées en vis-à-vis du texte
+    if(row.dataset.gallery && galleries[row.dataset.gallery]){
+      const blocks = [modalContent.querySelector('.modal-desc')].concat(
+        Array.from(modalContent.querySelectorAll('h5'))
+      );
+      galleries[row.dataset.gallery].forEach(g=>{
+        const slot = document.createElement('div');
+        slot.className = 'g-slot inline';
+        slot.innerHTML = '<div class="g-fig'+(g.fit?' contain':'')+'"><img src="'+g.src+'" alt=""></div>'
+          + '<div class="g-cap">'+g.caption+'</div>';
+        const target = blocks[Math.min(g.pos, blocks.length - 1)];
+        if(!target){ modalContent.appendChild(slot); return; }
+        if(g.pos === 0){ target.parentNode.insertBefore(slot, target); }
+        else { target.insertAdjacentElement('afterend', slot); }
+      });
+    }
+
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeProject(){
+    document.getElementById('projectModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeProject(); });
+
+  // ----- Formulaire de contact (mailto) -----
+  function sendMail(){
+    const name = document.getElementById('cName').value;
+    const email = document.getElementById('cEmail').value;
+    const msg = document.getElementById('cMsg').value;
+    const subject = encodeURIComponent('Contact portfolio — ' + name);
+    const body = encodeURIComponent(msg + '\n\n— ' + name + ' (' + email + ')');
+    window.location.href = 'mailto:Moubine.amir41@gmail.com?subject=' + subject + '&body=' + body;
+  }
+
+  // ----- Animation au scroll -----
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('visible'); } });
+  },{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+
+</body>
+</html>
