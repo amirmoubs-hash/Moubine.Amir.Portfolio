@@ -89,6 +89,18 @@
   .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
 
   /* ===== ABOUT ===== */
+  .about-grid{display:grid;grid-template-columns:220px 1fr;gap:54px;align-items:start;}
+  @media(max-width:760px){.about-grid{grid-template-columns:1fr;}}
+  .photo-frame{position:relative;padding:14px;}
+  .photo-frame::before,.photo-frame::after,
+  .photo-frame .c3::before,.photo-frame .c3::after{content:'';position:absolute;width:22px;height:22px;border-color:var(--ink);border-style:solid;}
+  .photo-frame::before{top:0;left:0;border-width:2px 0 0 2px;}
+  .photo-frame::after{top:0;right:0;border-width:2px 2px 0 0;}
+  .photo-frame .c3::before{bottom:0;left:0;border-width:0 0 2px 2px;}
+  .photo-frame .c3::after{bottom:0;right:0;border-width:0 2px 2px 0;}
+  .photo-box{aspect-ratio:1/1;background:var(--paper-2);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .photo-box img{width:100%;height:100%;object-fit:cover;}
+  .fig-caption{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-top:12px;text-align:center;}
   .about-text p{color:var(--ink-soft);margin-bottom:16px;font-size:.99rem;}
   .about-text p strong{color:var(--ink);}
   .spec-table{margin-top:30px;border:1px solid var(--line);background:#fff;}
@@ -225,6 +237,7 @@
   </div>
   <div class="hero-cta">
     <a href="#projets" class="btn btn-ink">Consulter les projets</a>
+    <a href="CV-Amir-Moubine.pdf" class="btn btn-ghost" target="_blank">Télécharger mon CV</a>
     <a href="#contact" class="btn btn-ghost">Me contacter</a>
   </div>
 </div>
@@ -233,7 +246,14 @@
 <section id="profil">
   <div class="sec-label">Section 01 — Profil</div>
   <h2 class="sec-title">À propos</h2>
-  <div class="reveal">
+  <div class="about-grid reveal">
+    <div>
+      <div class="photo-frame">
+        <span class="c3"></span>
+        <div class="photo-box"><img src="photo-profil.jpg" alt="Amir Moubine"></div>
+      </div>
+      <div class="fig-caption">Fig. 01 — Amir Moubine</div>
+    </div>
     <div class="about-text">
       <p>Étudiant en 2ᵉ année de BUT Mesures Physiques à l'IUT de Blois, je suis passionné par <strong>l'instrumentation, les matériaux et la résolution de problématiques techniques concrètes</strong>. Mon parcours, d'abord très théorique en prépa intégrée à l'INSA, a évolué vers une volonté forte d'expérimenter sur le terrain et de manipuler en laboratoire.</p>
       <p>Actuellement en stage de recherche à l'Université du Tohoku au Japon sur des enjeux d'érosion des matériaux, je développe au quotidien mon autonomie et ma rigueur scientifique. D'un naturel curieux, minutieux et manuel, je suis aujourd'hui à la recherche d'un <strong>contrat d'apprentissage pour ma 3ᵉ année de BUT (dès septembre 2026)</strong>, avec l'objectif de mettre mon adaptabilité et mes compétences techniques au service de vos projets.</p>
@@ -334,18 +354,74 @@
       </div>
       <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
       <div class="proj-hidden">
-        <p class="modal-desc">Mobilité internationale de trois mois au sein du laboratoire franco-japonais ELyTMaX, sous la supervision du chercheur Nicolas Mary. Étude des mécanismes de synergie entre l'érosion mécanique et la corrosion électrochimique sur des échantillons d'acier, avec un focus sur le chargement en hydrogène.</p>
-        <h5>Missions et réalisations</h5>
+        <p class="modal-desc">Stage de recherche de 9,5 semaines (11 mai — 17 juillet 2026) au sein d'ELyTMaX (IRL 3757), laboratoire international associant le CNRS, l'INSA Lyon, l'École Centrale de Lyon et l'Université de Tohoku, sur le campus d'Aobayama à Sendai (Japon). Avec Adem Amzighe, nous avons été les tout premiers étudiants de l'IUT de Blois à intégrer cette structure — un véritable rôle d'ambassadeurs ouvrant la voie à une collaboration entre les deux établissements. Étude, sous la supervision de Nicolas Mary, de la synergie érosion-corrosion d'un acier sous chargement en hydrogène.</p>
+
+        <h5>Contexte & problématique</h5>
         <ul>
-          <li><strong>Instrumentation & impression 3D :</strong> face à des problèmes de reproductibilité sur le banc d'essai, modélisation et fabrication d'une pièce sur-mesure en impression 3D. Cette solution a permis d'optimiser le montage expérimental, garantissant un maintien parfait de l'échantillon et une fiabilité totale des mesures.</li>
-          <li><strong>Analyse électrochimique (potentiostat) :</strong> mesures de chronopotentiométrie et de voltamétrie linéaire (LSV). Étude du comportement de l'acier sous protection cathodique forcée (de -5 mA à -20 mA) pour analyser l'évolution du potentiel (OCP) face à différentes hydrodynamiques de jet (de 20 à 90 mL/s).</li>
-          <li><strong>Caractérisation de surface :</strong> profilométrie 3D pour quantifier l'usure et la perte de volume (cratères) générées par l'impact mécanique continu de particules abrasives de 314 µm.</li>
-          <li><strong>Traitement et optimisation des données :</strong> conception d'un « tableau maître » automatisé sur Excel pour nettoyer les données brutes et superposer les régimes hydrodynamiques.</li>
+          <li>Dans de nombreux secteurs (pétrochimie, énergie, nucléaire, traitement de l'eau), les pièces métalliques subissent simultanément la corrosion chimique d'un fluide et l'abrasion mécanique de particules. Cette combinaison génère un phénomène <strong>synergique</strong> : la perte totale T = E + C + ΔS, où le terme de synergie ΔS peut représenter 50 à 70 % de la dégradation.</li>
+          <li>S'y ajoute la <strong>fragilisation par l'hydrogène</strong> : sous polarisation cathodique, la réduction de l'eau produit de l'hydrogène naissant qui diffuse dans le réseau métallique. L'influence de la vitesse d'écoulement sur cette pénétration reste mal quantifiée — c'est l'objet du stage.</li>
         </ul>
+
+        <h5>Dispositif expérimental</h5>
+        <ul>
+          <li><strong>Boucle hydraulique en circuit fermé :</strong> pompe péristaltique Verderflex Vantage 5000 projetant un jet d'électrolyte (NaCl 3 %) perpendiculairement (90°) sur l'échantillon, débits maîtrisés de 20 à 90 mL/s.</li>
+          <li><strong>Cellule électrochimique à 3 électrodes :</strong> électrode de travail (acier carboné, surface active 5,76 cm²), référence Ag/AgCl, contre-électrode en graphite. Pilotage par potentiostat BioLogic SP-150 via le logiciel EC-Lab.</li>
+          <li><strong>Particules abrasives :</strong> alumine blanche WA (Dv = 314 µm), 10 g introduits uniquement lors des phases galvanostatiques.</li>
+          <li><strong>Préparation métallographique :</strong> polissage systématique sur polisseuse Marumoto Struers S5629 ; usinage d'une nouvelle génération d'échantillons cylindriques (tronçonnage Discotom-10, découpe de précision Accutom-10 à 0,100 mm/s).</li>
+        </ul>
+
+        <h5>Les 3 campagnes de mesure</h5>
+        <ul>
+          <li><strong>Campagne 1 — OCP + LSV (sans particule) :</strong> suivi du potentiel à l'abandon (OCP, 1 h) puis voltamétrie linéaire (LSV à 1 mV/s), réalisés dans un même essai. Objectif : caractériser le comportement purement électrochimique de la surface à différents débits (statique, 20, 40, 60 mL/s) et mettre en évidence le seuil critique de cisaillement.</li>
+          <li><strong>Campagne 2 — Chronopotentiométrie à −5 mA :</strong> premier niveau de courant cathodique imposé, avec particules d'alumine, pour explorer les tendances hydrodynamiques (20, 60, 90 mL/s). A révélé une corrosion résiduelle (rouille) : ce faible courant est insuffisant pour bloquer totalement l'oxydation.</li>
+          <li><strong>Campagne 3 — Chronopotentiométrie à −20 mA :</strong> forte protection cathodique pour supprimer la corrosion résiduelle et isoler l'érosion mécanique pure (régimes contrastés 20 et 90 mL/s). Absence totale de rouille, entrée dans le régime limité par le transport de matière.</li>
+        </ul>
+
+        <h5>Protocole en 3 phases (campagnes galvanostatiques à −5 et −20 mA)</h5>
+        <ul>
+          <li><strong>Phase 1 — Protection cathodique statique (1 h) :</strong> stabilisation du système au repos pour établir un potentiel de référence, sans mouvement de fluide.</li>
+          <li><strong>Phase 2 — Activation par jet pur (5 min) :</strong> mesure de l'effet hydrodynamique seul (apport d'oxygène, frottement), sans particule.</li>
+          <li><strong>Phase 3 — Érosion-corrosion (30 min) :</strong> introduction des 10 g de particules d'alumine pour observer la synergie sous l'action conjuguée du courant imposé et des impacts.</li>
+        </ul>
+
+        <h5>Étalonnage & validation métrologique du banc</h5>
+        <ul>
+          <li><strong>Jaugeage gravimétrique de la pompe :</strong> avant toute mesure, vérification de la précision du débit par collecte de l'électrolyte dans un bécher taré, pesé après une durée chronométrée (Q = m/t). 12 essais répartis sur 5 débits cibles (15, 21, 30, 50, 65 mL/s), avec des temps de mesure allongés (10-15 s) pour limiter l'erreur humaine.</li>
+          <li><strong>Régression obtenue :</strong> droite d'étalonnage y = 1,047×10⁻⁶·x (débits en m³/s) forcée à l'origine, avec R² = 0,894 — soit 89 % de la variabilité du débit réel maîtrisée par la consigne. Trois débits fiables retenus pour la suite : 20, 40 et 60 mL/s.</li>
+          <li><strong>Analyse des incertitudes :</strong> la principale source d'erreur étant le temps de réaction manuel au chronomètre (±0,3 s), l'incertitude sur le débit est de ±2 à 3 % aux débits modérés, montant à ±5 % à fort débit (90 mL/s, collecte plus rapide).</li>
+          <li><strong>Précision des instruments :</strong> potentiostat BioLogic SP-150 (résolution 75 µV en potentiel, 0,004 % en courant) et profilomètre Keyence VR-3200 (résolution 0,1 µm, justesse ±3 µm) — des performances très supérieures aux besoins de l'étude.</li>
+        </ul>
+
+        <h5>Caractérisation de l'usure</h5>
+        <ul>
+          <li><strong>Profilométrie 3D :</strong> Keyence VR-3200 (technologie « ONE-SHOT 3D » par projection de franges) pour cartographier la surface usée et quantifier, par comparaison, le volume de matière arrachée après les essais galvanostatiques.</li>
+        </ul>
+
+        <h5>Résultats clés</h5>
+        <ul>
+          <li><strong>Validation du protocole :</strong> après une première campagne bruitée, normalisation des données en densité de courant (mA/cm²) et amortissement mécanique des pulsations de la pompe ; reproductibilité démontrée et hiérarchie physique cohérente (J₂₀ &lt; J₄₀ &lt; J₆₀).</li>
+          <li><strong>Franchissement d'un seuil critique :</strong> à −1,5 V, le courant chute brutalement à −103,6 mA à 60 mL/s (contre ≈ −24 mA aux débits faibles), traduisant l'arrachement de la couche de passivation par cisaillement.</li>
+          <li><strong>Quantification de l'érosion (profilométrie) :</strong> volume moyen arraché de 0,00 / 0,28 / 0,38 mm³ à 20 / 60 / 90 mL/s — preuve physique que l'usure mécanique croît avec le débit.</li>
+          <li><strong>Protection cathodique totale à −20 mA :</strong> dégagement intense de bulles d'hydrogène, absence totale de rouille, entrée dans le régime limité par le transport de matière (le débit gouverne alors directement le potentiel).</li>
+        </ul>
+
+        <h5>Aléas expérimentaux & résolution de problèmes</h5>
+        <ul>
+          <li><strong>Bris de l'injecteur (fin mai) :</strong> remplacement de la pièce et remise en service du banc début juin.</li>
+          <li><strong>Fuites persistantes (courant juin) :</strong> apparition de fuites aux raccords lors des essais à haut débit, palliées temporairement par l'ajout de téflon et d'adhésif.</li>
+          <li><strong>Rupture de la cellule en verre (12 juin) :</strong> rupture par fatigue de torsion à l'extrémité inférieure, au niveau du maintien de l'échantillon, diagnostiquée avec Nicolas Mary. Cet incident a stoppé la campagne — mais a été transformé en opportunité d'ingénierie avec la conception des pièces CAO ci-dessous.</li>
+          <li><strong>Signal électrique parasité :</strong> face aux vibrations de la pompe péristaltique qui bruitaient les mesures, mise au point d'une solution mécanique simple (pose d'un poids amortisseur) et normalisation mathématique des données, qui ont considérablement fiabilisé les courbes.</li>
+        </ul>
+
+        <h5>Optimisation par conception 3D (CAO)</h5>
+        <ul>
+          <li>Face à la rupture par fatigue de la cellule en verre (12 juin 2026), conception en CAO de <strong>trois pièces sur-mesure</strong> : une cuve de maintien cubique, un support pour les échantillons cylindriques (Ø 22 mm) garantissant une surface active constante, et une bride d'alignement en U assurant un angle d'impact de 90° reproductible. Un livrable technique prêt à être imprimé pour la continuité du programme.</li>
+        </ul>
+
         <h5>Compétences clés mobilisées</h5>
         <ul>
-          <li><strong>Techniques :</strong> électrochimie, conception 3D (CAO / impression 3D), profilométrie 3D, traitement de données massives (Excel), métrologie.</li>
-          <li><strong>Transversales :</strong> esprit d'analyse, démarche d'amélioration continue, adaptabilité dans un environnement de recherche international exigeant, résolution de problèmes complexes.</li>
+          <li><strong>Techniques :</strong> électrochimie (potentiostat, OCP/LSV/chronopotentiométrie), profilométrie 3D, métrologie et calcul d'incertitudes, conception CAO / impression 3D, préparation métallographique, traitement de données (Excel, Origin Viewer).</li>
+          <li><strong>Transversales :</strong> autonomie et adaptabilité en environnement de recherche international, immersion totale en anglais (réunions, rédaction), amélioration continue, résolution de problèmes face aux aléas expérimentaux.</li>
         </ul>
       </div>
     </div>
@@ -473,6 +549,7 @@
         <div class="c-line"><b>Téléphone</b><span>+33 6 14 62 60 93</span></div>
         <div class="c-line"><b>LinkedIn</b><span><a href="https://linkedin.com/in/amir-moubine" target="_blank">linkedin.com/in/amir-moubine</a></span></div>
         <div class="c-line"><b>Mobilité</b><span>Blois · Région Centre-Val de Loire · Permis B</span></div>
+        <div class="c-line"><b>CV</b><span><a href="CV-Amir-Moubine.pdf" target="_blank">Télécharger mon CV (PDF)</a></span></div>
       </div>
       <p class="c-note">Vous cherchez un apprenti motivé et rigoureux pour septembre 2026 ? N'hésitez pas à me contacter pour échanger sur vos projets et ma candidature. Actuellement en stage au Japon : contact à privilégier par email ou WhatsApp.</p>
     </div>
@@ -508,8 +585,18 @@
   // ----- Galeries : figures liées aux fichiers du dossier images/ -----
   const galleries = {
     tohoku: [
-      {src:"logo-elytmax.jpg", pos:0, fit:true, caption:"Fig. A — ELyTMaX, laboratoire commun franco-japonais (Univ. Tohoku / INSA Lyon)"},
-      {src:"lab-banc.jpg", pos:1, caption:"Fig. B — Banc d'essai instrumenté au laboratoire"}
+      {src:"logo-elytmax.jpg", pos:0, fit:true, caption:"Fig. A — ELyTMaX, laboratoire international CNRS / INSA Lyon / Univ. Tohoku"},
+      {src:"lab-banc.jpg", pos:2, caption:"Fig. B — Vue d'ensemble du banc d'essai : pompe, EC-Lab et cellule électrochimique"},
+      {src:"lab-schema.jpg", pos:2, fit:true, caption:"Fig. C — Schéma du banc en circuit fermé : pompe → injecteur → jet → récupération"},
+      {src:"lab-electrochimie.jpg", pos:2, caption:"Fig. D — Cellule électrochimique à trois électrodes en condition d'essai"},
+      {src:"lab-ocp.jpg", pos:3, fit:true, caption:"Fig. E — Potentiel de circuit ouvert (OCP) : évolution du potentiel selon le débit"},
+      {src:"lab-lsv.jpg", pos:3, fit:true, caption:"Fig. F — Voltamétrie linéaire (LSV) : densité de courant selon le potentiel et le débit"},
+      {src:"lab-chrono-5ma.jpg", pos:4, fit:true, caption:"Fig. G — Chronopotentiométrie à −5 mA : évolution du potentiel selon le débit (20, 60, 90 mL/s)"},
+      {src:"lab-chrono-20ma.jpg", pos:4, fit:true, caption:"Fig. H — Chronopotentiométrie à −20 mA : régimes contrastés 20 et 90 mL/s"},
+      {src:"lab-etalonnage.jpg", pos:5, fit:true, caption:"Fig. I — Courbe d'étalonnage de la pompe : régression forcée à l'origine (y = 1,047×10⁻⁶·x, R² = 0,894)"},
+      {src:"lab-hydrogene.jpg", pos:7, caption:"Fig. J — Dégagement de bulles d'hydrogène sous protection cathodique à −20 mA"},
+      {src:"lab-rupture.jpg", pos:8, caption:"Fig. K — Rupture par fatigue de la cellule en verre (12 juin 2026)"},
+      {src:"lab-cao.jpg", pos:9, fit:true, caption:"Fig. L — Pièces conçues en CAO pour fiabiliser le banc (cuve, support, bride)"}
     ],
     spectro: [
       {src:"spectro-boitier.jpg", pos:0, caption:"Fig. A — Électronique embarquée : carte Arduino et conditionnement du signal dans le boîtier ABS"},
